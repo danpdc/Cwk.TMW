@@ -8,34 +8,31 @@ using System.Threading.Tasks;
 
 namespace Cwk.TMW.Common.Types
 {
-    public record Distance : IMeasurementConvertible<Distance>
+    public class Speed : IMeasurementConvertible<Speed>
     {
-        public Distance(double value, MeasurementSystem system)
+        public Speed(double value, MeasurementSystem system)
         {
             Value = value;
             MeasurementSystem = system;
         }
-
-        private Distance() { }
-
         public int Id { get; set; }
-        public double Value { get; init; }
-        public MeasurementSystem MeasurementSystem { get; init; }
+        public double Value { get; set; }
+        public MeasurementSystem MeasurementSystem { get; set; }
 
-        public Distance ConvertFromImperialToMetric()
+        public Speed ConvertFromImperialToMetric()
         {
             if (MeasurementSystem == MeasurementSystem.Metric)
                 return this;
 
-            return new Distance(Value * 1.61, MeasurementSystem.Metric);
+            return new Speed(Value * 1.609344, MeasurementSystem.Metric);
         }
 
-        public Distance ConvertFromMetricToImperial()
+        public Speed ConvertFromMetricToImperial()
         {
             if (MeasurementSystem == MeasurementSystem.Imperial)
                 return this;
 
-            return new Distance(Value * 0.62, MeasurementSystem.Imperial);
+            return new Speed(Value * 0.6213711922, MeasurementSystem.Imperial);
         }
     }
 }

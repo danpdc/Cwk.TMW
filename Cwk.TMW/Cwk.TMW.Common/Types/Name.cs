@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +14,17 @@ namespace Cwk.TMW.Common.Types
             FirstName = firstName;
             LastName = lastName;
         }
+
+        private Name() { }
         
+        public int Id { get; set; }
         public string FirstName { get; init; }
         public string LastName { get; init; }
+
+        [NotMapped]
         public string Initials { get { return GetInitials(); } }
+
+        [NotMapped]
         public string FullName { get { return GetFullName(); } }
 
         private string GetInitials()

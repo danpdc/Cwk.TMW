@@ -9,12 +9,7 @@ namespace Cwk.TMW.Core.Models
 {
     public class User : IdentityUser
     {
-        public User()
-        {
-            Profiles = new List<IUserProfile>();
-        }
         public string Address { get; set; }
         public Name Name { get; set; }
-        public ICollection<IUserProfile> Profiles { get; set; }
     }
 }

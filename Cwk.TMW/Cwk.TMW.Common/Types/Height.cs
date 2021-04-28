@@ -16,6 +16,9 @@ namespace Cwk.TMW.Common.Types
             MeasurementSystem = system;
         }
 
+        private Height() { }
+
+        public int Id { get; set; }
         public double Value { get; init; }
         public MeasurementSystem MeasurementSystem { get; init; }
 

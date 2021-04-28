@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cwk.TMW.Core.Models
 {
-    public class Athletes : IUserProfile
+    public class Athlete : IUserProfile
     {
         public int Id { get; set; }
         public Uri ProfilePhotoUrl { get; set; }
@@ -19,6 +19,8 @@ namespace Cwk.TMW.Core.Models
         public Gender Gender { get; set; }
         public Height Height { get; set; }
         public Weight Weight { get; set; }
+
+        public string UserId { get; set; }
         public User User { get; set; }
     }
 }

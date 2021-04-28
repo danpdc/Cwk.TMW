@@ -15,6 +15,9 @@ namespace Cwk.TMW.Core.Models
             City = city;
         }
 
+        private ProfileLocation() { }
+
+        public int Id { get; set; }
         string Country { get; init; }
         string Region { get; init; }
         string City { get; init; }

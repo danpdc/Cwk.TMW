@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cwk.TMW.Infrastructure.Migrations
 {
     [DbContext(typeof(TmwDbContext))]
-    [Migration("20210425194151_updateIdentity")]
-    partial class updateIdentity
+    [Migration("20210428174126_AddUserAndAthlete")]
+    partial class AddUserAndAthlete
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,136 @@ namespace Cwk.TMW.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Cwk.TMW.Common.Types.Height", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MeasurementSystem")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Height");
+                });
+
+            modelBuilder.Entity("Cwk.TMW.Common.Types.Name", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Name");
+                });
+
+            modelBuilder.Entity("Cwk.TMW.Common.Types.Weight", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MeasurementSystem")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Weight");
+                });
+
+            modelBuilder.Entity("Cwk.TMW.Core.Models.Athlete", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("DateOfBirth")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HeightId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilePhotoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProfileSettingsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("WeightId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HeightId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("ProfileSettingsId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WeightId");
+
+                    b.ToTable("Athletes");
+                });
+
+            modelBuilder.Entity("Cwk.TMW.Core.Models.ProfileLocation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfileLocation");
+                });
+
+            modelBuilder.Entity("Cwk.TMW.Core.Models.ProfileSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PreferredMeasurementSystem")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TimeZone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfileSettings");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -234,7 +364,45 @@ namespace Cwk.TMW.Infrastructure.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NameId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("NameId");
+
                     b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("Cwk.TMW.Core.Models.Athlete", b =>
+                {
+                    b.HasOne("Cwk.TMW.Common.Types.Height", "Height")
+                        .WithMany()
+                        .HasForeignKey("HeightId");
+
+                    b.HasOne("Cwk.TMW.Core.Models.ProfileLocation", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Cwk.TMW.Core.Models.ProfileSettings", "ProfileSettings")
+                        .WithMany()
+                        .HasForeignKey("ProfileSettingsId");
+
+                    b.HasOne("Cwk.TMW.Core.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("Cwk.TMW.Common.Types.Weight", "Weight")
+                        .WithMany()
+                        .HasForeignKey("WeightId");
+
+                    b.Navigation("Height");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("ProfileSettings");
+
+                    b.Navigation("User");
+
+                    b.Navigation("Weight");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -286,6 +454,15 @@ namespace Cwk.TMW.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Cwk.TMW.Core.Models.User", b =>
+                {
+                    b.HasOne("Cwk.TMW.Common.Types.Name", "Name")
+                        .WithMany()
+                        .HasForeignKey("NameId");
+
+                    b.Navigation("Name");
                 });
 #pragma warning restore 612, 618
         }
