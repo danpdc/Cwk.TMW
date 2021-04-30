@@ -17,7 +17,6 @@ namespace Cwk.TMW.Common.Types
 
         private Name() { }
         
-        public int Id { get; set; }
         public string FirstName { get; init; }
         public string LastName { get; init; }
 

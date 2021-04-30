@@ -18,7 +18,6 @@ namespace Cwk.TMW.Common.Types
 
         private Height() { }
 
-        public int Id { get; set; }
         public double Value { get; init; }
         public MeasurementSystem MeasurementSystem { get; init; }
 

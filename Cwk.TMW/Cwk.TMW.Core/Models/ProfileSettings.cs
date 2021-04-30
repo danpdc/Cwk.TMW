@@ -17,7 +17,6 @@ namespace Cwk.TMW.Core.Models
 
         private ProfileSettings() { }
         
-        public int Id { get; set; }
         public string TimeZone { get; init; }
         public MeasurementSystem PreferredMeasurementSystem { get; init; }
 

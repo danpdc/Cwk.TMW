@@ -15,7 +15,8 @@ namespace Cwk.TMW.Common.Types
             Value = value;
             MeasurementSystem = system;
         }
-        public int Id { get; set; }
+
+        private Speed() { }
         public double Value { get; set; }
         public MeasurementSystem MeasurementSystem { get; set; }
 

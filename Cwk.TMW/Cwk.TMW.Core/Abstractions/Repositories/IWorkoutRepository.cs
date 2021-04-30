@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cwk.TMW.Core.Abstractions.Repositories
 {
-    public interface IWorkoutRepository<T> where T : IWorkout
+    public interface IWorkoutRepository<T> : ITmwRepository where T : IWorkout
     {
         Task<T> CreateWorkoutAsync(T workout);
         Task<T> UpdateWorkoutAsync(T updatedWorkout);

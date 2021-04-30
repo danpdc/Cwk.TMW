@@ -26,8 +26,7 @@ namespace Cwk.TMW.Core.Models.Workouts
         public int AthleteId { get; set; }
         public Athlete Athlete { get; set; }
 
-        [NotMapped]
-        public Height TotalElevation { get { return GetTotalElevation(); } }
+        public Height TotalElevation { get { return GetTotalElevation(); } private set { } }
 
         private Height GetTotalElevation()
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cwk.TMW.Core.Abstractions.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : ITmwRepository
     {
         Task<User> UpdateUserAsync(User updatedUser);
     }

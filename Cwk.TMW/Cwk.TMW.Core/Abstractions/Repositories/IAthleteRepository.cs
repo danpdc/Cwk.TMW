@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cwk.TMW.Core.Abstractions.Repositories
 {
-    public interface IAthleteRepository
+    public interface IAthleteRepository : ITmwRepository
     {
         Task<Athlete> CreateAthleteAsync(Athlete athlete);
         Task<Athlete> UpdateProfileSettingsAsync(int athleteId, ProfileSettings settings);
